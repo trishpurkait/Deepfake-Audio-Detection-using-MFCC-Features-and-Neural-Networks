@@ -38,35 +38,60 @@ Built using the `librosa` library to extract **48 numerical features** from each
 
 ## 🧠 Modeling & Results
 
-### 1. Naive Bayes (GaussianNB)
-Baseline machine learning model with moderate performance:
+Multiple machine learning and deep learning algorithms were trained and evaluated on the extracted audio features:
 
-| Metric | Score |
-|--------|-------|
-| **Accuracy** | 67.12% |
-| **Precision** | 77.55% |
-| **Recall** | 47.30% |
-| **F1 Score** | 58.77% |
+### Model Performance Comparison
 
-### 2. Artificial Neural Network (ANN) ⭐
-Deep learning model constructed using Keras/TensorFlow:
+| Model | Accuracy | Precision | Recall | F1 Score |
+|-------|----------|-----------|---------|----------|
+| **Support Vector Machine (SVM)** ⭐ | **99.56%** | **99.47%** | **99.65%** | **99.56%** |
+| K-Nearest Neighbors (KNN) | 98.75% | 97.83% | 99.69% | 98.75% |
+| Random Forest | 98.05% | 98.01% | 98.06% | 98.03% |
+| Artificial Neural Network (ANN) | 97.90% | 96.60% | 99.25% | 97.91% |
+| Decision Tree | 92.48% | 91.85% | 93.07% | 92.45% |
+| Naive Bayes | 67.13% | 77.55% | 47.31% | 58.77% |
 
+### Detailed Model Descriptions
+
+#### 1. Support Vector Machine (SVM) ⭐ **Best Performer**
+- **Algorithm**: Support Vector Classifier with default parameters
+- **Performance**: Achieved the highest overall accuracy and balanced metrics
+- **Confusion Matrix**: [[2296, 12], [8, 2256]]
+- **Strengths**: Excellent precision-recall balance, minimal false positives/negatives
+
+#### 2. K-Nearest Neighbors (KNN)
+- **Algorithm**: KNN classifier with default k value
+- **Performance**: Second-best performer with highest recall
+- **Confusion Matrix**: [[2258, 50], [7, 2257]]
+- **Strengths**: Exceptional recall (99.69%), very few false negatives
+
+#### 3. Random Forest
+- **Algorithm**: Ensemble of decision trees
+- **Performance**: Strong and consistent results across all metrics
+- **Confusion Matrix**: [[2263, 45], [44, 2220]]
+- **Strengths**: Robust performance with good generalization
+
+#### 4. Artificial Neural Network (ANN)
 - **Architecture**: Sequential model with Dense layers (64 → 32 → 1)
 - **Activation**: ReLU for hidden layers, Sigmoid for output layer
-- **Training**: 20 Epochs, Batch Size of 16
-- **Loss Function**: Binary Crossentropy
+- **Training**: 20 Epochs, Batch Size of 16, Binary Crossentropy loss
+- **Confusion Matrix**: [[2229, 79], [17, 2247]]
+- **Strengths**: High recall (99.25%), good at detecting fake audio
 
-#### Performance Metrics:
+#### 5. Decision Tree
+- **Algorithm**: Single decision tree classifier
+- **Performance**: Moderate performance, prone to overfitting
+- **Confusion Matrix**: [[2121, 187], [157, 2107]]
 
-| Metric | Score |
-|--------|-------|
-| **Accuracy** | **99.57%** |
-| **Recall** | 99.25% |
-| **F1 Score** | 97.91% |
+#### 6. Naive Bayes
+- **Algorithm**: Gaussian Naive Bayes classifier
+- **Performance**: Baseline model with lowest accuracy
+- **Confusion Matrix**: [[1998, 310], [1193, 1071]]
+- **Limitations**: Low recall (47.31%), misses many positive samples
 
 ## 🏆 Conclusion
 
-The Artificial Neural Network (ANN) achieved outstanding performance with nearly **99.6% accuracy**. The extracted spectral features (MFCCs, Chroma, etc.) contain strong discriminative signals that the deep learning model successfully leverages to identify deepfake audio with high reliability.
+The **Support Vector Machine (SVM)** emerged as the best-performing model with **99.56% accuracy**, demonstrating exceptional precision and recall balance. The extracted spectral features (MFCCs, Chroma, etc.) contain strong discriminative signals that enable multiple algorithms to achieve over 97% accuracy. Traditional ML algorithms (SVM, KNN, Random Forest) outperformed the deep learning approach (ANN) in this specific task, likely due to the relatively small feature space (48 features) where linear and distance-based methods excel.
 
 ## 📦 Dependencies
 
